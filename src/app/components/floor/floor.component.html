@@ -19,15 +19,18 @@
 </ul>
 <div class="floor-row" *ngFor="let floor of floors; let i=index">
   <h2>Floor {{floors[floors.length-i-1].id}}</h2>
-  <img *ngIf="floors[floors.length-i-1].isActive===true" class="elevator-img" src="../../../assets/elevatorActive.png">
-  <img *ngIf="floors[floors.length-i-1].isActive===false" class="elevator-img" src="../../../assets/elevatorNonActive.png">
+  <img *ngIf="floors[floors.length-i-1].isActive && !floors[floors.length-i-1].isCalledHere" class="elevator-img" src="../../../assets/elevatorActive.png">
+  <img *ngIf="(!floors[floors.length-i-1].isActive)" class="elevator-img" src="../../../assets/elevatorNonActive.png">
+  <img *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere" class="elevator-img" src="../../../assets/elevatorOpened.png">
   <div class="elevator-buttons">
-    <button  *ngIf="floors[floors.length-i-1].isActive===false" (click)="callElevator(floors.length-i-1,'UP')">Call Elevator Up</button>
-    <button  *ngIf="floors[floors.length-i-1].isActive===false" (click)="callElevator(floors.length-i-1,'DOWN')">Call Elevator Down</button>
+    <button  *ngIf="(!floors[floors.length-i-1].isCalledHere) || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)" (click)="callElevator(floors.length-i-1,'UP')">Call Elevator Up</button>
+    <button  *ngIf="(!floors[floors.length-i-1].isCalledHere) || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)" (click)="callElevator(floors.length-i-1,'DOWN')">Call Elevator Down</button>
     <div class="destination-picker" *ngIf="floors[floors.length-i-1].isActive">
-      <ul>
+      <ul *ngIf="floors[floors.length-i-1].isCalledHere">
         <li *ngFor="let floor of floors">
-          <button class="destination-button" (click)="destinationChosen(floor.id)">{{floor.id}}</button>
+          <button class="destination-button" *ngIf="actualDirection === 'UP' && floor.id > actualPosition" (click)="destinationChosen(floor.id)">{{floor.id}}</button>
+          <button class="destination-button" *ngIf="actualDirection === 'DOWN' && floor.id < actualPosition" (click)="destinationChosen(floor.id)">{{floor.id}}</button>
+          <button class="destination-button" *ngIf="actualDirection === null" (click)="destinationChosen(floor.id)">{{floor.id}}</button>
         </li>
       </ul>
     </div>

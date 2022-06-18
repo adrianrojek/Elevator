@@ -1,12 +1,12 @@
 .floor-row{
-  height: 80px;
+  height: 115px;
   background-color: crimson;
   color: lightgrey;
   display: flex;
   justify-content: center;
 }
 .elevator-img{
-  height: 70px;
+  height: 110px;
   padding: 5px;
 }
 .elevator-buttons{
@@ -20,6 +20,6 @@
 .destination-button{
   border-radius: 25px;
 }
-ul,li{
+h2,ul,li{
   display: inline;
 }

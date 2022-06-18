@@ -12,7 +12,9 @@ export class FloorComponent implements OnInit {
   public callQueue: QueueRecord[] = [];
   public actualDestinations: number[] = [];
   actualPosition: number = 0;
-  actualDirection: "UP"|"DOWN" = "UP";
+  actualDirection: "UP"|"DOWN"|null = null;
+  isOccupied : boolean = false;
+
 
 
 
@@ -26,11 +28,13 @@ export class FloorComponent implements OnInit {
       this.floors.push({
         isActive: true,
         id: this.floors.length,
+        isCalledHere: false
       })
     }else{
       this.floors.push({
         isActive: false,
         id: this.floors.length,
+        isCalledHere: false
       })
     }
   }
@@ -58,7 +62,10 @@ export class FloorComponent implements OnInit {
       floorNumber: floor,
       direction: direction
     });
-    if(this.actualDestinations.length == 0){
+    this.floors[floor].isCalledHere = true;
+    if(this.actualDestinations.length == 0 && !this.isOccupied){
+      this.actualDirection = direction;
+      this.isOccupied = true;
       if (this.floors[this.actualPosition].isActive) {
         let currentDestination : QueueRecord = <QueueRecord>this.callQueue.pop();
         if(currentDestination.floorNumber > this.actualPosition ){
@@ -80,6 +87,7 @@ export class FloorComponent implements OnInit {
   }
 
   async destinationChosen(id: number) {
+    this.floors[this.actualPosition].isCalledHere = false;
     this.actualDestinations.push(id);
     while(this.actualDestinations.length!=0){
       if (id < this.actualPosition){
@@ -87,42 +95,43 @@ export class FloorComponent implements OnInit {
           this.moveOneFloor("DOWN");
           this.actualPosition--;
           await this.delay(4500);
+          console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
-            console.log(this.callQueue[i]);
             if(this.callQueue[i].direction === "DOWN" && this.callQueue[i].floorNumber == this.actualPosition){
               this.callQueue.splice(i,1);
               return;
             }
           }
-          for (let i = 0; i < this.actualDestinations.length; i++) {
-            if(this.actualDestinations[i] == this.actualPosition){
-              this.actualDestinations.splice(i,1);
-            }
-          }
+          console.log("pred dest", this.actualDestinations);
+          this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
+          console.log("po dest", this.actualDestinations);
         }
       }else if (id > this.actualPosition){
         while (this.actualPosition != Math.max(...this.actualDestinations) && this.actualDestinations.length!=0){
           this.moveOneFloor("UP");
           this.actualPosition++;
           await this.delay(4500);
+          console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
-            console.log(this.callQueue[i]);
             if(this.callQueue[i].direction === "UP" && this.callQueue[i].floorNumber == this.actualPosition){
               this.callQueue.splice(i,1);
               return;
             }
           }
-          for (let i = 0; i < this.actualDestinations.length; i++) {
-            if(this.actualDestinations[i] == this.actualPosition){
-              this.actualDestinations.splice(i,1);
-            }
-          }
+          console.log("pred dest", this.actualDestinations);
+          this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
+          console.log("po dest", this.actualDestinations);
         }
       }
       if (this.callQueue.length != 0){
+        this.isOccupied = false;
         const nextPassenger: QueueRecord = <QueueRecord> this.callQueue.pop();
+        this.actualDirection = nextPassenger.direction;
         this.callElevator(nextPassenger.floorNumber, nextPassenger.direction);
+      }else{
+        this.actualDirection = null;
       }
     }
+    this.isOccupied = false;
   }
 }
