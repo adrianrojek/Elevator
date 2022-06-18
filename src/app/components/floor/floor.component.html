@@ -1,0 +1,35 @@
+<h2>Floor settings</h2>
+<button (click)="addFloor()">Add floor</button>
+<button (click)="deleteFloor()">Delete floor</button>
+<h2>Queue</h2>
+<ul>
+  <li *ngFor="let record of callQueue">
+    <h4>
+      {{record.floorNumber}}, {{record.direction}}
+    </h4>
+  </li>
+</ul>
+<h2>Actual destinations</h2>
+<ul>
+  <li *ngFor="let destination of actualDestinations">
+    <h4>
+      {{destination}}
+    </h4>
+  </li>
+</ul>
+<div class="floor-row" *ngFor="let floor of floors; let i=index">
+  <h2>Floor {{floors[floors.length-i-1].id}}</h2>
+  <img *ngIf="floors[floors.length-i-1].isActive===true" class="elevator-img" src="../../../assets/elevatorActive.png">
+  <img *ngIf="floors[floors.length-i-1].isActive===false" class="elevator-img" src="../../../assets/elevatorNonActive.png">
+  <div class="elevator-buttons">
+    <button  *ngIf="floors[floors.length-i-1].isActive===false" (click)="callElevator(floors.length-i-1,'UP')">Call Elevator Up</button>
+    <button  *ngIf="floors[floors.length-i-1].isActive===false" (click)="callElevator(floors.length-i-1,'DOWN')">Call Elevator Down</button>
+    <div class="destination-picker" *ngIf="floors[floors.length-i-1].isActive">
+      <ul>
+        <li *ngFor="let floor of floors">
+          <button class="destination-button" (click)="destinationChosen(floor.id)">{{floor.id}}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

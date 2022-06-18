@@ -1,0 +1,25 @@
+.floor-row{
+  height: 80px;
+  background-color: crimson;
+  color: lightgrey;
+  display: flex;
+  justify-content: center;
+}
+.elevator-img{
+  height: 70px;
+  padding: 5px;
+}
+.elevator-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.destination-picker {
+  display: flex;
+}
+.destination-button{
+  border-radius: 25px;
+}
+ul,li{
+  display: inline;
+}
