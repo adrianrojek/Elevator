@@ -15,9 +15,6 @@ export class FloorComponent implements OnInit {
   actualDirection: "UP"|"DOWN"|null = null;
   isOccupied : boolean = false;
 
-
-
-
   constructor() { }
 
   ngOnInit(): void {
@@ -67,7 +64,7 @@ export class FloorComponent implements OnInit {
       this.actualDirection = direction;
       this.isOccupied = true;
       if (this.floors[this.actualPosition].isActive) {
-        let currentDestination : QueueRecord = <QueueRecord>this.callQueue.pop();
+        let currentDestination : QueueRecord = <QueueRecord>this.callQueue.shift();
         if(currentDestination.floorNumber > this.actualPosition ){
           while (this.actualPosition != currentDestination.floorNumber) {
             this.moveOneFloor("UP");
@@ -83,6 +80,7 @@ export class FloorComponent implements OnInit {
         }
       }
       console.log(this.floors);
+      console.log("direct",this.actualDirection);
     }
   }
 
@@ -92,9 +90,9 @@ export class FloorComponent implements OnInit {
     while(this.actualDestinations.length!=0){
       if (id < this.actualPosition){
         while (this.actualPosition != Math.min(...this.actualDestinations) && this.actualDestinations.length!=0){
+          await this.delay(4500);
           this.moveOneFloor("DOWN");
           this.actualPosition--;
-          await this.delay(4500);
           console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
             if(this.callQueue[i].direction === "DOWN" && this.callQueue[i].floorNumber == this.actualPosition){
@@ -108,9 +106,9 @@ export class FloorComponent implements OnInit {
         }
       }else if (id > this.actualPosition){
         while (this.actualPosition != Math.max(...this.actualDestinations) && this.actualDestinations.length!=0){
+          await this.delay(4500);
           this.moveOneFloor("UP");
           this.actualPosition++;
-          await this.delay(4500);
           console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
             if(this.callQueue[i].direction === "UP" && this.callQueue[i].floorNumber == this.actualPosition){
@@ -125,6 +123,7 @@ export class FloorComponent implements OnInit {
       }
       if (this.callQueue.length != 0){
         this.isOccupied = false;
+        await this.delay(4500);
         const nextPassenger: QueueRecord = <QueueRecord> this.callQueue.pop();
         this.actualDirection = nextPassenger.direction;
         this.callElevator(nextPassenger.floorNumber, nextPassenger.direction);

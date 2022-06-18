@@ -23,8 +23,8 @@
   <img *ngIf="(!floors[floors.length-i-1].isActive)" class="elevator-img" src="../../../assets/elevatorNonActive.png">
   <img *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere" class="elevator-img" src="../../../assets/elevatorOpened.png">
   <div class="elevator-buttons">
-    <button  *ngIf="(!floors[floors.length-i-1].isCalledHere) || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)" (click)="callElevator(floors.length-i-1,'UP')">Call Elevator Up</button>
-    <button  *ngIf="(!floors[floors.length-i-1].isCalledHere) || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)" (click)="callElevator(floors.length-i-1,'DOWN')">Call Elevator Down</button>
+    <button  *ngIf="((!floors[floors.length-i-1].isCalledHere)  || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)) && floors[floors.length-i-1].id != floors.length-1" (click)="callElevator(floors.length-i-1,'UP')">Call Elevator Up</button>
+    <button  *ngIf="((!floors[floors.length-i-1].isCalledHere) || (floors[floors.length-i-1].isCalledHere && !floors[floors.length-i-1].isActive)) && floors[floors.length-i-1].id != 0" (click)="callElevator(floors.length-i-1,'DOWN')">Call Elevator Down</button>
     <div class="destination-picker" *ngIf="floors[floors.length-i-1].isActive">
       <ul *ngIf="floors[floors.length-i-1].isCalledHere">
         <li *ngFor="let floor of floors">
