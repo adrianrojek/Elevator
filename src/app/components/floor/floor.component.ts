@@ -38,10 +38,13 @@ export class FloorComponent implements OnInit {
   }
 
   async callElevator(floor:number,direction : "UP"|"DOWN") {
-    this.callQueue.push({
-      floorNumber: floor,
-      direction: direction
-    });
+    let serverProposal = this.callQueue.find( (p) => p.floorNumber == floor && p.direction == direction);
+    if(serverProposal===undefined){
+      this.callQueue.push({
+        floorNumber: floor,
+        direction: direction
+      });
+    }
     if(this.actualDestinations.length == 0 && !this.isOccupied){
       this.actualDirection = direction;
       this.isOccupied = true;
