@@ -1,7 +1,7 @@
 .settings-panel{
   height: 150px;
   width: 100%;
-  background-color: crimson;
+  background-color: #ffffff;
   position: fixed;
   top: 0;
   display: flex;
@@ -36,20 +36,20 @@
   justify-items: center;
 }
 .indicator{
-  height: 90%;
-  width: 80%;
+  height: 80%;
+  width: 75%;
   background-color: black;
   border: solid grey 6px;
   display: inline-flex;
-  margin-top: 4px;
+  margin-top: 1px;
 }
 .notice-panel{
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .indicator-number{
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 85%;
   width: 100%;
   background-color: #000000;
   padding: 0;
@@ -65,7 +65,7 @@
   margin-top: 0;
 }
 .indicator-arrow{
-  font-size: 90px;
+  font-size: 80px;
   color: crimson;
   margin: 0;
 }
@@ -81,5 +81,14 @@
   width: 100%;
   height: 100%;
   padding-left: 10px;
+}
+.floor-button{
+  border: none;
+  color: white;
+  font-size: 17px;
+  background-color: rgb(146,151,165);
+  margin: 4px;
+  border-radius: 6px;
+  padding: 6px;
 }
 

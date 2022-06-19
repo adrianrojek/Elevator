@@ -1,4 +1,4 @@
-<app-settings-panel [floors]="floors"[currentDestinations]="actualDestinations"[queue]="callQueue" [actualPosition]="actualPosition" [actualDirection]="actualDirection" ></app-settings-panel>
+<app-settings-panel [notice]="notice" [floors]="floors"[currentDestinations]="actualDestinations"[queue]="callQueue" [actualPosition]="actualPosition" [actualDirection]="actualDirection" ></app-settings-panel>
 <div class="floor-container" style="margin-top: 160px">
   <div class="floor-row" *ngFor="let floor of floors; let i=index">
     <div class="floor-label">
@@ -21,6 +21,10 @@
           </li>
         </ul>
       </div>
+    </div>
+    <div class="people-count-container" *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere">
+      <label class="people-count-label" for="people-count-input">People count</label>
+      <input [(ngModel)]="peopleCount" type="number"  [maxLength]="1" id="people-count-input" class="people-count-input">
     </div>
   </div>
 </div>

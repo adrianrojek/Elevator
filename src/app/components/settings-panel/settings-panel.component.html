@@ -1,21 +1,21 @@
 <div class="settings-panel">
   <div class="queues" >
     <div class="queue">
-      <h2>Queue</h2>
+      <h2 style="color: rgb(126,165,103)">Queue:</h2>
       <ul>
-        <li *ngFor="let record of queue">
-          <h4>
-            {{record.floorNumber}}, {{record.direction}}
+        <li *ngFor="let record of queue" style="margin-top: 0">
+          <h4 style="color: rgb(126,165,103);font-size: 14px;margin-top: 0">
+            {{record.floorNumber}}-{{record.direction}} ;
           </h4>
         </li>
       </ul>
     </div>
     <div class="current-destinations">
-      <h2>Current Destinations</h2>
+      <h2 style="color: rgb(126,165,103);">Current Destinations:</h2>
       <ul>
-        <li *ngFor="let record of currentDestinations">
-          <h4>
-            {{record}}
+        <li *ngFor="let record of currentDestinations" style="margin-top: 0">
+          <h4 style="color: rgb(126,165,103);;font-size: 18px;margin-top: 0">
+            {{record}}  ,
           </h4>
         </li>
       </ul>
@@ -32,15 +32,14 @@
       </div>
     </div>
     <div class="notice-panel">
-      <h4 style="margin: 0;">{{notice}}</h4>
+      <h3 style="margin-bottom: 1px;margin-top: 0; font-size: 24px">{{notice}}</h3>
     </div>
-
   </div>
   <div class="floor-settings" >
     <div class="floor-buttons" style="">
-      <h2>Floor settings</h2>
-      <button (click)="addFloor()">Add floor</button>
-      <button (click)="deleteFloor()">Delete floor</button>
+      <h2 style="color: rgb(126,165,103);">Floor settings</h2>
+      <button class="floor-button" (click)="addFloor()">Add floor</button>
+      <button class="floor-button" (click)="deleteFloor()">Delete floor</button>
     </div>
   </div>
 </div>

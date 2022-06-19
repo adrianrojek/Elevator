@@ -15,7 +15,8 @@ export class FloorComponent implements OnInit {
   actualDirection: "UP"|"DOWN"|null = null;
   isOccupied : boolean = false;
   elevatorLimit: number = 4;
-  peopleCount: number = 0;
+  peopleCount: number = 1;
+  notice: string = '';
 
   constructor() { }
 
@@ -65,48 +66,57 @@ export class FloorComponent implements OnInit {
   }
 
   async destinationChosen(id: number) {
-    this.floors[this.actualPosition].isCalledHere = false;
-    this.actualDestinations.push(id);
-    while(this.actualDestinations.length!=0){
-      if (id < this.actualPosition){
-        while (this.actualPosition != Math.min(...this.actualDestinations) && this.actualDestinations.length!=0){
-          await this.delay(4500);
-          this.moveOneFloor("DOWN");
-          this.actualPosition--;
-          this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
-          for (let i = 0; i < this.callQueue.length; i++) {
-            if(this.callQueue[i].direction === "DOWN" && this.callQueue[i].floorNumber == this.actualPosition){
-              this.floors[this.actualPosition].isCalledHere = true;
-              this.callQueue.splice(i,1);
-              return;
+    if ((this.actualDestinations.length + this.peopleCount) <= this.elevatorLimit){
+      this.floors[this.actualPosition].isCalledHere = false;
+      for (let i=0;i<this.peopleCount;i++){
+        this.actualDestinations.push(id);
+      }
+      while(this.actualDestinations.length!=0){
+        if (id < this.actualPosition){
+          while (this.actualPosition != Math.min(...this.actualDestinations) && this.actualDestinations.length!=0){
+            await this.delay(4500);
+            this.moveOneFloor("DOWN");
+            this.actualPosition--;
+            this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
+            for (let i = 0; i < this.callQueue.length; i++) {
+              if(this.callQueue[i].direction === "DOWN" && this.callQueue[i].floorNumber == this.actualPosition){
+                this.floors[this.actualPosition].isCalledHere = true;
+                this.callQueue.splice(i,1);
+                return;
+              }
+            }
+          }
+        }else if (id > this.actualPosition){
+          while (this.actualPosition != Math.max(...this.actualDestinations) && this.actualDestinations.length!=0){
+            await this.delay(4500);
+            this.moveOneFloor("UP");
+            this.actualPosition++;
+            this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
+            for (let i = 0; i < this.callQueue.length; i++) {
+              if(this.callQueue[i].direction === "UP" && this.callQueue[i].floorNumber == this.actualPosition){
+                this.floors[this.actualPosition].isCalledHere = true;
+                this.callQueue.splice(i,1);
+                return;
+              }
             }
           }
         }
-      }else if (id > this.actualPosition){
-        while (this.actualPosition != Math.max(...this.actualDestinations) && this.actualDestinations.length!=0){
+        if (this.callQueue.length != 0){
+          this.isOccupied = false;
           await this.delay(4500);
-          this.moveOneFloor("UP");
-          this.actualPosition++;
-          this.actualDestinations = this.actualDestinations.filter(destination => destination != this.actualPosition);
-          for (let i = 0; i < this.callQueue.length; i++) {
-            if(this.callQueue[i].direction === "UP" && this.callQueue[i].floorNumber == this.actualPosition){
-              this.floors[this.actualPosition].isCalledHere = true;
-              this.callQueue.splice(i,1);
-              return;
-            }
-          }
+          const nextPassenger: QueueRecord = <QueueRecord> this.callQueue.pop();
+          this.actualDirection = nextPassenger.direction;
+          this.callElevator(nextPassenger.floorNumber, nextPassenger.direction);
+        }else{
+          this.actualDirection = null;
         }
       }
-      if (this.callQueue.length != 0){
-        this.isOccupied = false;
-        await this.delay(4500);
-        const nextPassenger: QueueRecord = <QueueRecord> this.callQueue.pop();
-        this.actualDirection = nextPassenger.direction;
-        this.callElevator(nextPassenger.floorNumber, nextPassenger.direction);
-      }else{
-        this.actualDirection = null;
-      }
+      this.isOccupied = false;
+    }else{
+      this.notice = 'NOT ENOUGH SPACE IN THE ELEVATOR';
+      await this.delay(3000);
+      this.notice = '';
     }
-    this.isOccupied = false;
-  }
+    }
+
 }

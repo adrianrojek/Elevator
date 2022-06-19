@@ -48,7 +48,7 @@ h2,ul,li{
 .elevator-buttons{
   width: 15%;
   justify-content: center;
-  margin-right: 10%;
+  margin-right: 5%;
 }
 .call-button{
   width: 55px;
@@ -63,4 +63,21 @@ h2,ul,li{
 }
 .settings{
   margin-top: 160px;
+}
+.people-count-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  horiz-align: left;
+
+}
+.people-count-input{
+  width: 65%;
+  height: 15%;
+  border: solid 1px rgb(126,165,103);
+  border-radius: 4px;
+}
+.people-count-label{
+  font-size: 18px;
+  color: rgb(126,165,103);
 }

@@ -12,7 +12,7 @@ export class SettingsPanelComponent implements OnInit {
   @Input() currentDestinations : number[] = [];
   @Input() queue : QueueRecord[] = [];
   @Input() actualPosition : number = 0;
-  notice: string = "Select floor";
+  @Input() notice: string = "";
   @Input() actualDirection: "UP"|"DOWN"|null = null;
 
   constructor() { }
