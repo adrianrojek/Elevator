@@ -22,9 +22,9 @@
         </ul>
       </div>
     </div>
-    <div class="people-count-container" *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere">
-      <label class="people-count-label" for="people-count-input">People count</label>
-      <input [(ngModel)]="peopleCount" type="number"  [maxLength]="1" id="people-count-input" class="people-count-input">
+    <div class="people-count-container" >
+      <label *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere" class="people-count-label" for="people-count-input">People count</label>
+      <input *ngIf="floors[floors.length-i-1].isActive && floors[floors.length-i-1].isCalledHere" [(ngModel)]="peopleCount" type="number"  [maxLength]="1" id="people-count-input" class="people-count-input">
     </div>
   </div>
 </div>

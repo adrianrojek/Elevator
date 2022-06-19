@@ -16,9 +16,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0;
 }
 .destination-picker {
   display: flex;
+  padding-left: 0;
 }
 .destination-button{
   width: 25px;
@@ -37,18 +39,18 @@ h2,ul,li{
   font-size: 80px;
 }
 .floor-label{
-  width: 15%;
+  width: 20%;
   align-items: center;
   margin-left: 2%;
 }
 .floor-elevator-image{
-  width: 70%;
+  width: 50%;
   align-items: center;
 }
 .elevator-buttons{
-  width: 15%;
+  width: 20%;
   justify-content: center;
-  margin-right: 5%;
+  margin-right: 0;
 }
 .call-button{
   width: 55px;
@@ -69,6 +71,7 @@ h2,ul,li{
   flex-direction: column;
   justify-content: center;
   horiz-align: left;
+  width: 10%;
 
 }
 .people-count-input{
