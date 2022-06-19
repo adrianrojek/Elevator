@@ -32,14 +32,18 @@
       </div>
     </div>
     <div class="notice-panel">
-      <h3 style="margin-bottom: 1px;margin-top: 0; font-size: 24px">{{notice}}</h3>
+      <h3 style="margin-bottom: 1px;margin-top: 0; font-size: 18px;color: rgb(126,165,103)">{{notice}}</h3>
     </div>
   </div>
-  <div class="floor-settings" >
-    <div class="floor-buttons" style="">
+  <div class="settings">
+    <div class="floor-buttons" style="display: flex">
       <h2 style="color: rgb(126,165,103);">Floor settings</h2>
       <button class="floor-button" (click)="addFloor()">Add floor</button>
       <button class="floor-button" (click)="deleteFloor()">Delete floor</button>
+    </div>
+    <div class="limit-panel" style="display:flex;justify-content: center;margin-top: 0">
+      <h2 style="color: rgb(126,165,103);">Elevator limit:</h2>
+      <h2 style="color: rgb(126,165,103);">{{elevatorLimit}}</h2>
     </div>
   </div>
 </div>

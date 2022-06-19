@@ -14,7 +14,7 @@ export class FloorComponent implements OnInit {
   actualPosition: number = 0;
   actualDirection: "UP"|"DOWN"|null = null;
   isOccupied : boolean = false;
-  elevatorLimit: number = 4;
+  elevatorLimit: number = 5;
   peopleCount: number = 1;
   notice: string = '';
 
@@ -117,7 +117,9 @@ export class FloorComponent implements OnInit {
       this.isOccupied = false;
     }else{
       this.notice = 'NOT ENOUGH SPACE IN THE ELEVATOR';
-      await this.delay(3000);
+      await this.delay(2000);
+      this.notice = 'FREE SPOTS:'+(this.elevatorLimit-this.actualDestinations.length).toString();
+      await this.delay(2000);
       this.notice = '';
     }
     }

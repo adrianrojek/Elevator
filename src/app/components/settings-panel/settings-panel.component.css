@@ -69,12 +69,15 @@
   color: crimson;
   margin: 0;
 }
-.floor-settings{
+.settings{
   background-color: rgb(242,248,249);
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  justify-items: center;
+
 }
 .queues{
   background-color: rgb(242,248,249);
@@ -83,12 +86,25 @@
   padding-left: 10px;
 }
 .floor-button{
+  height: 50%;
   border: none;
   color: white;
   font-size: 17px;
   background-color: rgb(146,151,165);
   margin: 4px;
+  margin-top: 20px;
+  margin-left: 10px;
   border-radius: 6px;
   padding: 6px;
+}
+.elevator-limit-input{
+  width: 65%;
+  height: 15%;
+  border: solid 1px rgb(126,165,103);
+  border-radius: 4px;
+}
+.elevator-limit-label{
+  font-size: 18px;
+  color: rgb(126,165,103);
 }
 

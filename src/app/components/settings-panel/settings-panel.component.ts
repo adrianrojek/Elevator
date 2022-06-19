@@ -14,6 +14,7 @@ export class SettingsPanelComponent implements OnInit {
   @Input() actualPosition : number = 0;
   @Input() notice: string = "";
   @Input() actualDirection: "UP"|"DOWN"|null = null;
+  elevatorLimit : number = 5;
 
   constructor() { }
 
