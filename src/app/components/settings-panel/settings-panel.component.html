@@ -1,0 +1,48 @@
+<div class="settings-panel">
+  <div class="queues" >
+    <div class="queue">
+      <h2>Queue</h2>
+      <ul>
+        <li *ngFor="let record of queue">
+          <h4>
+            {{record.floorNumber}}, {{record.direction}}
+          </h4>
+        </li>
+      </ul>
+    </div>
+    <div class="current-destinations">
+      <h2>Current Destinations</h2>
+      <ul>
+        <li *ngFor="let record of currentDestinations">
+          <h4>
+            {{record}}
+          </h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="floor-indicator">
+    <div class="indicator">
+      <div class="indicator-number">
+        <h1 class="indicator-arrow">{{actualPosition}}</h1>
+      </div>
+      <div class="indicator-direction">
+        <h1 *ngIf="actualDirection === 'UP'" class="indicator-arrow">&uArr;</h1>
+        <h1 *ngIf="actualDirection === 'DOWN'" class="indicator-arrow">&dArr;</h1>
+      </div>
+    </div>
+    <div class="notice-panel">
+      <h4 style="margin: 0;">{{notice}}</h4>
+    </div>
+
+  </div>
+  <div class="floor-settings" >
+    <div class="floor-buttons" style="">
+      <h2>Floor settings</h2>
+      <button (click)="addFloor()">Add floor</button>
+      <button (click)="deleteFloor()">Delete floor</button>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,42 @@
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Floor} from "../../models/Floor";
+import {QueueRecord} from "../../models/QueueRecord";
+
+@Component({
+  selector: 'app-settings-panel',
+  templateUrl: './settings-panel.component.html',
+  styleUrls: ['./settings-panel.component.css']
+})
+export class SettingsPanelComponent implements OnInit {
+  @Input() floors : Floor[] = [];
+  @Input() currentDestinations : number[] = [];
+  @Input() queue : QueueRecord[] = [];
+  @Input() actualPosition : number = 0;
+  notice: string = "Select floor";
+  @Input() actualDirection: "UP"|"DOWN"|null = null;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  addFloor() {
+    if (this.floors.length == 0){
+      this.floors.push({
+        isActive: true,
+        id: this.floors.length,
+        isCalledHere: false
+      })
+    }else{
+      this.floors.push({
+        isActive: false,
+        id: this.floors.length,
+        isCalledHere: false
+      })
+    }
+  }
+
+  deleteFloor() {
+    this.floors.pop();
+  }
+}
