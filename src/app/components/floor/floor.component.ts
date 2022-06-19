@@ -59,12 +59,12 @@ export class FloorComponent implements OnInit {
       floorNumber: floor,
       direction: direction
     });
-    this.floors[floor].isCalledHere = true;
     if(this.actualDestinations.length == 0 && !this.isOccupied){
       this.actualDirection = direction;
       this.isOccupied = true;
       if (this.floors[this.actualPosition].isActive) {
         let currentDestination : QueueRecord = <QueueRecord>this.callQueue.shift();
+        this.floors[currentDestination.floorNumber].isCalledHere = true;
         if(currentDestination.floorNumber > this.actualPosition ){
           while (this.actualPosition != currentDestination.floorNumber) {
             this.moveOneFloor("UP");
@@ -79,8 +79,6 @@ export class FloorComponent implements OnInit {
           }
         }
       }
-      console.log(this.floors);
-      console.log("direct",this.actualDirection);
     }
   }
 
@@ -96,6 +94,7 @@ export class FloorComponent implements OnInit {
           console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
             if(this.callQueue[i].direction === "DOWN" && this.callQueue[i].floorNumber == this.actualPosition){
+              this.floors[this.actualPosition].isCalledHere = true;
               this.callQueue.splice(i,1);
               return;
             }
@@ -112,6 +111,7 @@ export class FloorComponent implements OnInit {
           console.log(this.floors);
           for (let i = 0; i < this.callQueue.length; i++) {
             if(this.callQueue[i].direction === "UP" && this.callQueue[i].floorNumber == this.actualPosition){
+              this.floors[this.actualPosition].isCalledHere = true;
               this.callQueue.splice(i,1);
               return;
             }
