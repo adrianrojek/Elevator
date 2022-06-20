@@ -7,7 +7,8 @@ This project is meant to simulate basic behaviour of an elevator. It consists of
 `SettingsPanelComponent`.
 ### SettingsPanelComponent
 SettingsPanelComponent serves for displaying information about elevator´s actual movement, destinations and position. It also contains
-buttons which manage amount of floors that are displayed. 
+buttons which manage amount of floors that are displayed. Floors should be being added or removed only when simulation is not
+running and elevator is present on the groundfloor.
 ### FloorComponent
 FloorComponent represents one floor, it consists of floor label that indicates number of particular floor, 
 elevator image that represents actual state and movement of elevator and changes based on actual state

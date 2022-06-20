@@ -21,6 +21,7 @@ export class SettingsPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //PRIDAVANIE POSCHODIA
   addFloor() {
     if (this.floors.length == 0){
       this.floors.push({
@@ -36,7 +37,7 @@ export class SettingsPanelComponent implements OnInit {
       })
     }
   }
-
+  //VYMAZANIE POSCHODIA
   deleteFloor() {
     this.floors.pop();
   }
